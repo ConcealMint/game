@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Art Shutdown</title>
+    <link rel="stylesheet" href="/stylesheets/index.css" />
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+  </head>
+
+  <body>
+    <div class="page" data-page="mainScreen">
+      <a style="text-align: center; font-weight: bold">Main Screen</a>
+      <div id="mainScreen">
+        <div id="contents">
+          <div id="menu">
+            <div id="logosOfGame">
+              <img
+                src="../images/gameLogo.png"
+                id="gameLogo"
+                data-type="gameLogo"
+              />
+              <img
+                src="../images/logo.png"
+                data-type="translucentSun"
+                id="translucentSun"
+              />
+              <img
+                src="../images/logo.png"
+                data-type="translucentSun"
+                id="translucentSun"
+              />
+
+              <!-- <img src="../images/logo.png" class="logo" data-number="3"> -->
+              <!-- <img src="../images/logo.png" class="logo" data-number="4"> -->
+            </div>
+            <div id="containerForNameAndButtonAndPFP">
+              <div id="containerForPFP">
+                <div id="playerPFPDiv">
+                  <img id="playerPFP" src="../images/player01.png" />
+                </div>
+                <div id="reselectDiv">
+                  <img src="../images/reselect.png" id="reselect" />
+                </div>
+              </div>
+              <div id="containerForName">
+                <div id="enterPrompt">
+                  <div>Choose a Cool Avatar and Name</div>
+                </div>
+                <div id="nameAndButtonDiv">
+                  <div id="selectedNameDiv">
+                    <input
+                      style="font-family: 'Bang'"
+                      id="selectedName"
+                      type="text"
+                      placeholder=" Cool Username"
+                      minlength="1"
+                      maxlength="25"
+                      required
+                      autocomplete="off"
+                    />
+                  </div>
+                  <div id="readyButtonDiv">
+                    <button id="readyButton" style="font-family: 'Bang'">
+                      Ready!
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page" data-page="lobbyScreen">
+      <a style="font-weight: bold">Lobby Screen</a>
+      <div id="lobbyMainScreen">
+        <div id="lobbyContents">
+          <div id="lobbyMenu">
+            <div id="lobbyLogos">
+              <img src="../images/gameLogo.png" id="lobbyGameLogo" />
+              <img src="../images/logo.png" id="lobbyTranslucentSun" />
+            </div>
+            <div id="lobbyPlayersAndInfo">
+              <div id="lobbyPlayers">
+                <div id="numberOfPlayersOutOfTotal"></div>
+                <div id="player01">
+                  <div>
+                    <img id="player01ActualPFP" src="../images/player01.png" />
+                  </div>
+                  <div id="player01ActualName"></div>
+                </div>
+                <div id="player02">
+                  <div>
+                    <img id="player02ActualPFP" src="../images/player01.png" />
+                  </div>
+                  <div id="player02ActualName"></div>
+                </div>
+                <div id="player03">
+                  <div>
+                    <img id="player03ActualPFP" src="../images/player01.png" />
+                  </div>
+                  <div id="player03ActualName"></div>
+                </div>
+                <div id="player04">
+                  <div>
+                    <img id="player04ActualPFP" src="../images/player01.png" />
+                  </div>
+                  <div id="player04ActualName"></div>
+                </div>
+              </div>
+              <div id="moreLobbyInfo">
+                <div id="lobbyTeamCodePrompt">Please Enter The Room Code</div>
+                <div id="lobbyTeamCodeDiv">
+                  <input
+                    type="text"
+                    required
+                    maxlength="6"
+                    minlength="6"
+                    id="lobbyTeamCode"
+                    style="font-family: 'Bang'"
+                    autocomplete="off"
+                  />
+                </div>
+                <div id="buttonToStartGameDiv">
+                  <button id="buttonToJoinGame" style="font-family: 'Bang'">
+                    Join!
+                  </button>
+                  <button id="buttonToStartGame" style="font-family: 'Bang'">
+                    Start!
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page">
+      <a style="font-weight: bold">Game Screen</a>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="module" src="/javascripts/first.js"></script>
+  </body>
+</html>

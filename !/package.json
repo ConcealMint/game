@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "start": "nodemon  server.js index.html practice.js",
+    "kys": "nodemon  practice.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.3",
+    "http": "^0.0.1-security",
+    "nodemon": "^3.1.0",
+    "socket.io": "^4.7.5"
+  }
+}
