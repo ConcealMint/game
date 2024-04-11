@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Connected.");
     });
 
+
     const reselect = document.getElementById("reselect");
     const playerPFP = document.getElementById("playerPFP");
     reselect.addEventListener("click", () => {
@@ -41,13 +42,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const selectedName = document.getElementById("selectedName");
 
     mainScreen.classList.add("active");
+    /* remove now */
+    // mainScreen.classList.remove("active");
+    // gameScreen.classList.add("active");
+    /* remove now */
 
     readyButton.addEventListener("click", () => {
         mainScreen.classList.remove("active");
         lobbyScreen.classList.add("active");
 
         let name = selectedName.value.trim() || "Cool User";
-        socket.emit("send-player-info-to-server", { name, playerPFP });
+        let pfpSrc = playerPFP.src;
+        socket.emit("send-player-info-to-server", { name, pfpSrc });
 
         const playerElements = {
             player01: document.getElementById("player01ActualName"),
@@ -74,8 +80,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     playerElement.textContent = playerName;
                     // Update player ID
                     playerElement.dataset.playerId = playerID;
-                    // Update player PFP
-                    playerElement.previousElementSibling.src = playerPFP;
+
+                    // Update player PFP if it's not undefined
+                    if (playerPFP) {
+                        let playerPFPElement = document.getElementById(`player0${playerID}ActualPFP`);
+                        if (playerPFPElement) {
+                            playerPFPElement.src = playerPFP;
+                        }
+                    }
                 }
             }
 
@@ -93,6 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         });
+
         socket.on("updateTotalPlayers", (players) => {
             let numberOfPlayersOutOfTotal = document.getElementById("numberOfPlayersOutOfTotal");
             switch (players) {
@@ -113,6 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     break;
                 }
             }
+            socket.emit("update-players");
         });
 
         socket.on("player-disconnect", (disconnectedPlayerId) => {
@@ -120,7 +134,42 @@ document.addEventListener("DOMContentLoaded", function () {
             if (playerElement) {
                 playerElement.textContent = "";
                 playerElement.dataset.playerId = "";
+
+                // Reset the profile picture
+                const playerPFPElement = document.getElementById(`player0${disconnectedPlayerId}ActualPFP`);
+                if (playerPFPElement) {
+                    playerPFPElement.src = ""; // Set the source to an empty string
+                }
+
+                // Shift the positions of the remaining players
+                for (let i = disconnectedPlayerId + 1; i <= 4; i++) {
+                    const nextPlayerElement = playerElements[`player0${i}`];
+                    const currentPlayerElement = playerElements[`player0${i - 1}`];
+                    if (nextPlayerElement && currentPlayerElement) {
+                        // Move the next player's information to the current player's position
+                        currentPlayerElement.textContent = nextPlayerElement.textContent;
+                        currentPlayerElement.dataset.playerId = nextPlayerElement.dataset.playerId;
+
+                        // Clear the next player's information
+                        nextPlayerElement.textContent = "";
+                        nextPlayerElement.dataset.playerId = "";
+                    }
+                }
             }
         });
+
     });
+    let buttonToStartGame = document.getElementById("buttonToStartGame");
+buttonToStartGame.addEventListener("click", () => {
+    console.log('Button clicked');
+    lobbyScreen.classList.remove("active");
+    gameScreen.classList.add("active");
+});
+
+let promptProceed = document.getElementById("promptProceed");
+promptProceed.addEventListener("click", () => {
+    let gameTextPrompt = document.getElementById("gameTextPrompt").value;
+    console.log("Value of gameTextPrompt:", gameTextPrompt);
+    socket.emit("client-s-prompt", gameTextPrompt);
+});
 });

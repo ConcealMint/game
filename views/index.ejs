@@ -36,7 +36,7 @@
             <div id="containerForNameAndButtonAndPFP">
               <div id="containerForPFP">
                 <div id="playerPFPDiv">
-                  <img id="playerPFP" src="../images/player01.png" >
+                  <img id="playerPFP" src="../images/player01.png" />
                 </div>
                 <div id="reselectDiv">
                   <img src="../images/reselect.png" id="reselect" />
@@ -85,31 +85,33 @@
                 <div id="numberOfPlayersOutOfTotal"></div>
                 <div id="player01">
                   <div>
-                    <img id="player01ActualPFP" src="../images/player01.png" />
+                    <img id="player01ActualPFP" src="" />
                   </div>
                   <div id="player01ActualName"></div>
                 </div>
                 <div id="player02">
                   <div>
-                    <img id="player02ActualPFP" src="../images/player01.png" />
+                    <img id="player02ActualPFP" src="" />
                   </div>
                   <div id="player02ActualName"></div>
                 </div>
                 <div id="player03">
                   <div>
-                    <img id="player03ActualPFP" src="../images/player01.png" />
+                    <img id="player03ActualPFP" src="" />
                   </div>
                   <div id="player03ActualName"></div>
                 </div>
                 <div id="player04">
                   <div>
-                    <img id="player04ActualPFP" src="../images/player01.png" />
+                    <img id="player04ActualPFP" src="" />
                   </div>
                   <div id="player04ActualName"></div>
                 </div>
               </div>
               <div id="moreLobbyInfo">
-                <div id="lobbyTeamCodePrompt">Please Enter The Room Code</div>
+                <div id="lobbyTeamCodePrompt">
+                  You have been joined to room <%= 1+3 %>34 by default.
+                </div>
                 <div id="lobbyTeamCodeDiv">
                   <input
                     type="text"
@@ -135,8 +137,32 @@
         </div>
       </div>
     </div>
-    <div class="page">
+    <div class="page" data-page="gameScreen">
       <a style="font-weight: bold">Game Screen</a>
+      <div id="gameMainScreen">
+        <div id="promptScreen">
+          <div id="translucentSunDiv">
+            <img src="/images/logo.png" id="translucentSun" />
+            <img src="/images/gameLogo.png" id="gameGameLogo" />
+            <div id="enterAPrompt">Describe a Scene</div>
+            <div id="prompts">
+              <div id="gameTextPromptDiv">
+                <input
+                  id="gameTextPrompt"
+                  type="text"
+                  maxlength="100"
+                  minlength="3"
+                  placeholder="A cow inside a sauna."
+                />
+              </div>
+              <div id="promptProceedDiv">
+                <button id="promptProceed"><img id="tick" src="/images/tick.png"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="drawingBoard"></div>
+      </div>
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script type="module" src="/javascripts/first.js"></script>

@@ -362,13 +362,13 @@ body {
     cursor: wait;
 }
 
-#lobbyMainScreen {
+#lobbyMainScreen, #gameMainScreen {
     height: 100vh;
     width: 100vw;
     background-color: #001B79;
 }
 
-#lobbyContents {
+#lobbyContents, #promptScreen {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -378,6 +378,7 @@ body {
     width: 71.4%;
     box-shadow: 20px 20px 60px #0a1a54, inset -10px -10px 30px #0f38ca;
 }
+
 
 #lobbyMenu {
     position: absolute;
@@ -628,4 +629,98 @@ body {
     -webkit-text-stroke: #ED5AB3;
     background-color: #fd007ea8;
     cursor: wait;
+}
+
+#translucentSunDiv #translucentSun {
+    animation: glow 5s infinite linear reverse, rotateTranslucentSun 100s infinite linear;
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    height: 100%;
+    opacity: 0.01;
+}
+
+#promptScreen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+}
+
+#enterAPrompt {
+    color: #ad0068;
+    -webkit-text-stroke: #da88b9 2px;
+}
+
+#enterAPrompt {
+    display: flex;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#gameTextPrompt {
+    border: none;
+    outline: none;
+    width:45vh;
+    font-size: 2rem;
+    color: #880052;
+    -webkit-text-stroke: 1px #5b0036;
+    background-color:#da88b9a2;
+    text-align: center;
+}
+#gameTextPrompt::placeholder{
+    color: #ff0099;
+    opacity: 0.4;
+}
+#gameGameLogo {
+    transform: translate(-50%, -50%);
+    display: flex;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    height: 170px;
+}
+
+#prompts {
+    display: flex;
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    /* border: 2px solid black; */
+    transform: translate(-50%, -50%);
+    justify-content: space-evenly;
+    width: 30vw;
+    align-items: center;
+}
+
+#promptProceed {
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:40px;
+    border-radius: 20%;
+    border:#ff0099 2px solid;
+    cursor: pointer;
+    outline: none;
+    transition: 0.3s;
+    background-color:#001B79
+}
+
+#promptProceed:hover {
+    background-color: #0f38ca;
+    border:#d3007f 2px solid;
+}
+
+#promptProceed:active {
+    border:#880052 2px solid;
+    background-color: #0a1a54;
+}
+
+#tick {
+    height: 20px;
+
 }
