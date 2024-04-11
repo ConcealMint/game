@@ -203,7 +203,7 @@ body {
     transform: translate(-50%, -50%);
     height: 100%;
     z-index: -1;
-    animation: glow 5s infinite linear reverse, rotateTranslucentSun 3s linear infinite;
+    animation: glow 5s infinite linear reverse, rotateTranslucentSun 6s linear infinite;
 }
 
 #containerForNameAndButtonAndPFP {
@@ -241,7 +241,7 @@ body {
     left: 38%;
     height: 34%;
     width: 60%;
-    font-size: 1.7em;
+    font-size: 1.7rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -277,6 +277,7 @@ body {
 
 #playerPFP {
     height: 100%;
+    border-radius: 50%;
 }
 
 #nameAndButtonDiv {
@@ -308,7 +309,7 @@ body {
     text-align: center;
     color: #ffffff;
     -webkit-text-stroke: 1.5px #ad0068;
-    font-size: 1.8em;
+    font-size: 1.8rem;
     margin: none;
     padding-left: 12px;
     padding-right: 12px;
@@ -347,7 +348,7 @@ body {
     -webkit-text-stroke: 1.5px #ad0068;
     transition: 0.25s linear;
     font-weight: bold;
-    font-size: 1.5em;
+    font-size: 1.5rem;
     box-shadow: 0.9px 5px 0px black;
 }
 
@@ -459,7 +460,7 @@ body {
 }
 
 #lobbyPlayersAndInfo {
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: bold;
 }
 
@@ -510,7 +511,7 @@ body {
 }
 
 #player01ActualName, #player02ActualName, #player03ActualName, #player04ActualName {
-    font-size: 3.5rem;
+    font-size: 2rem;
     /* padding-left: 30%; */
     display: flex;
     align-items: center;
@@ -528,7 +529,7 @@ body {
     top: 40%;
     /* border: 2px solid greenyellow; */
     color: white;
-    font-size: 1.1em;
+    font-size: 1.1rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -552,7 +553,7 @@ body {
 #lobbyTeamCode {
     border: none;
     height: 90%;
-    font-size: 1.2em;
+    font-size: 1.2rem;
     outline: none;
     text-align: center;
     background-color: #0000009a;
@@ -584,7 +585,7 @@ body {
     height: 90%;
     width: 90%;
     border: none;
-    font-size: 1.4em;
+    font-size: 1.4rem;
     color: white;
     -webkit-text-stroke: #ff0099;
     background-color: #ff00803f;
@@ -608,7 +609,7 @@ body {
     height: 90%;
     width: 90%;
     border: none;
-    font-size: 1.4em;
+    font-size: 1.4rem;
     color: white;
     -webkit-text-stroke: #ff0099;
     background-color: #ff00803f;

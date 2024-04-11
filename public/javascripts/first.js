@@ -1,79 +1,126 @@
-const socket = io();
-
-socket.on("connect", () => {
-    console.log("Connected.");
-});
-
 document.addEventListener("DOMContentLoaded", function () {
+    const socket = io();
 
-    // window.addEventListener("beforeunload", function (event) {
-    //     event.preventDefault();
-    //     event.returnValue = '';
-    // });
+    socket.on("connect", () => {
+        console.log("Connected.");
+    });
+
+    const reselect = document.getElementById("reselect");
+    const playerPFP = document.getElementById("playerPFP");
+    reselect.addEventListener("click", () => {
+        let pfps = Math.floor(Math.random() * 5);
+        switch (pfps) {
+            case 0: {
+                playerPFP.setAttribute("src", "../images/gameLogo.png");
+                break;
+            }
+            case 1: {
+                playerPFP.setAttribute("src", "../images/logo.png");
+                break;
+            }
+            case 2: {
+                playerPFP.setAttribute("src", "../images/tulla.png");
+                break;
+            }
+            case 3: {
+                playerPFP.setAttribute("src", "../images/player01.png");
+                break;
+            }
+            case 4: {
+                playerPFP.setAttribute("src", "../images/reselect.png");
+                break;
+            }
+        }
+    });
+
     const pages = document.querySelectorAll(".page");
-    let readyButton = document.getElementById("readyButton");
-    let startButton = document.getElementById("buttonToStartGame");
-    let mainScreen = pages[0];
-    let lobbyScreen = pages[1];
-    let gameScreen = pages[2];
-    // lobby.classList.add("active");
-    let selectedName = document.getElementById("selectedName");
+    const readyButton = document.getElementById("readyButton");
+    const mainScreen = pages[0];
+    const lobbyScreen = pages[1];
+    const gameScreen = pages[2];
+    const selectedName = document.getElementById("selectedName");
+
     mainScreen.classList.add("active");
 
-    readyButton.addEventListener("click", () => { //to go to lobby screen
-        let name = selectedName.value;
-        let buttonToJoinGame = document.getElementById("buttonToJoinGame");
-        let numberOfPlayersOutOfTotal = document.getElementById("numberOfPlayersOutOfTotal");
-        console.log(name);
+    readyButton.addEventListener("click", () => {
         mainScreen.classList.remove("active");
         lobbyScreen.classList.add("active");
-        let room = "1234";
-        socket.emit("player-info", name);
 
-        buttonToJoinGame.addEventListener("click", () => {
-            let lobbyTeamCode = document.getElementById("lobbyTeamCode").value;
-            socket.emit("join-room", lobbyTeamCode);
-            socket.on("joined-room", (roomcode) => {
-                let lobbyTeamCodePrompt = document.getElementById("lobbyTeamCodePrompt");
-                lobbyTeamCodePrompt.textContent = `Joined room: ${roomcode}.`;
-            });
-            socket.on("show-player-info", (name, connections) => {
-                numberOfPlayersOutOfTotal.textContent = `0/4`;
-                let player01ActualName = document.getElementById("player01ActualName");
-                let player02ActualName = document.getElementById("player02ActualName");
-                let player03ActualName = document.getElementById("player03ActualName");
-                let player04ActualName = document.getElementById("player04ActualName");
-                switch (connections) {
-                    case 1: {
-                        numberOfPlayersOutOfTotal.textContent = `1/4`;
-                        player01ActualName.textContent = name;
-                        break;
-                    }
-                    case 2: {
-                        numberOfPlayersOutOfTotal.textContent = `2/4`;
-                        player02ActualName.textContent = name;
-                        break;
-                    }
-                    case 3: {
-                        numberOfPlayersOutOfTotal.textContent = `3/4`;
-                        player03ActualName.textContent = name;
-                        break;
-                    }
-                    case 4: {
-                        numberOfPlayersOutOfTotal.textContent = `4/4`;
-                        player04ActualName.textContent = name;
-                        break;
-                    }
+        let name = selectedName.value.trim() || "Cool User";
+        socket.emit("send-player-info-to-server", { name, playerPFP });
+
+        const playerElements = {
+            player01: document.getElementById("player01ActualName"),
+            player02: document.getElementById("player02ActualName"),
+            player03: document.getElementById("player03ActualName"),
+            player04: document.getElementById("player04ActualName")
+        };
+
+        socket.on("update-players", (backendPlayers) => {
+            // Clear previous player data
+            // Render the player names and PFPs on the lobby page
+            for (let playerId in backendPlayers) {
+                const backendPlayer = backendPlayers[playerId];
+                const playerName = backendPlayer.playerName;
+                const playerID = backendPlayer.playerId;
+                const playerPFP = backendPlayer.pfpSrc;
+
+                // Get the corresponding player element
+                let playerElement = playerElements[`player0${playerID}`];
+
+                // Check if player element exists
+                if (playerElement) {
+                    // Update player name
+                    playerElement.textContent = playerName;
+                    // Update player ID
+                    playerElement.dataset.playerId = playerID;
+                    // Update player PFP
+                    playerElement.previousElementSibling.src = playerPFP;
                 }
-            });
+            }
+
+            let occupiedIndex = 1;
+            for (let i = 1; i <= 4; i++) {
+                const playerElement = playerElements[`player0${i}`];
+                if (playerElement.textContent !== "") {
+                    if (i !== occupiedIndex) {
+                        playerElements[`player0${occupiedIndex}`].textContent = playerElement.textContent;
+                        playerElements[`player0${occupiedIndex}`].dataset.playerId = playerElement.dataset.playerId;
+                        playerElement.textContent = "";
+                        playerElement.dataset.playerId = "";
+                    }
+                    occupiedIndex++;
+                }
+            }
+        });
+        socket.on("updateTotalPlayers", (players) => {
+            let numberOfPlayersOutOfTotal = document.getElementById("numberOfPlayersOutOfTotal");
+            switch (players) {
+                case 1: {
+                    numberOfPlayersOutOfTotal.textContent = players + " / 4";
+                    break;
+                }
+                case 2: {
+                    numberOfPlayersOutOfTotal.textContent = players + " / 4";
+                    break;
+                }
+                case 3: {
+                    numberOfPlayersOutOfTotal.textContent = players + " / 4";
+                    break;
+                }
+                case 4: {
+                    numberOfPlayersOutOfTotal.textContent = players + " / 4";
+                    break;
+                }
+            }
         });
 
-
-        // startButton.addEventListener("click", () => { //to go to game screen
-        //     mainScreen.classList.remove("active");
-        //     lobbyScreen.classList.remove("active");
-        //     gameScreen.classList.add("active");
-        //     socket.emit("join-room");
-        // });
+        socket.on("player-disconnect", (disconnectedPlayerId) => {
+            const playerElement = playerElements[`player0${disconnectedPlayerId}`];
+            if (playerElement) {
+                playerElement.textContent = "";
+                playerElement.dataset.playerId = "";
+            }
+        });
     });
 });

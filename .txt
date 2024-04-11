@@ -1,0 +1,4 @@
+        let playerActualNameabc = document.getElementById("playerActualNameabc");
+        let playerActualNamedef = document.getElementById("playerActualNamedef");
+        let playerActualNameghi = document.getElementById("playerActualNameghi");
+        let playerActualNamejkl = document.getElementById("playerActualNamejkl");
