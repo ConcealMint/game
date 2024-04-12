@@ -4,7 +4,34 @@ document.addEventListener("DOMContentLoaded", function () {
     socket.on("connect", () => {
         console.log("Connected.");
     });
+    // Select the favicon link element
+const favicon = document.getElementById("favicon");
 
+// Function to toggle between two favicon images with a specified interval
+function animateFavicon() {
+    // Define an array of URLs for your favicon frames
+    const frames = [
+        "../images/1.png",
+        "../images/2.png",
+        "../images/3.png",
+        "../images/4.png",
+        "../images/5.png",
+    ];
+
+    let currentIndex = 0;
+
+    // Update the favicon with the next frame
+    function updateFavicon() {
+        favicon.href = frames[currentIndex];
+        currentIndex = (currentIndex + 1) % frames.length;
+    }
+
+    // Update favicon at regular intervals to create animation
+    setInterval(updateFavicon, 500); // Change 500 to adjust the animation speed
+}
+
+// Call the function to start the animation
+animateFavicon();
 
     const reselect = document.getElementById("reselect");
     const playerPFP = document.getElementById("playerPFP");
@@ -12,15 +39,15 @@ document.addEventListener("DOMContentLoaded", function () {
         let pfps = Math.floor(Math.random() * 5);
         switch (pfps) {
             case 0: {
-                playerPFP.setAttribute("src", "../images/gameLogo.png");
+                playerPFP.setAttribute("src", "../images/player03.png");
                 break;
             }
             case 1: {
-                playerPFP.setAttribute("src", "../images/logo.png");
+                playerPFP.setAttribute("src", "../images/player04.png");
                 break;
             }
             case 2: {
-                playerPFP.setAttribute("src", "../images/tulla.png");
+                playerPFP.setAttribute("src", "../images/player02.png");
                 break;
             }
             case 3: {
@@ -28,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 break;
             }
             case 4: {
-                playerPFP.setAttribute("src", "../images/reselect.png");
+                playerPFP.setAttribute("src", "../images/player05.png");
                 break;
             }
         }

@@ -722,5 +722,16 @@ body {
 
 #tick {
     height: 20px;
+}
 
+#favicon {
+    animation: rotate 5s infinite linear reverse;
+}
+@keyframes rotate {
+    from{
+        transform:rotate(0deg);
+    }
+    to{
+        transform:rotate(360deg);
+    }
 }
